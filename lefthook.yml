@@ -33,7 +33,6 @@
 #       runner: node
 #     "any.go":
 #       runner: go run
-
 pre-commit:
     commands:
         linter:
