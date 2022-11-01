@@ -10,10 +10,10 @@ blocks:
       jobs:
         - name: Install
           commands:
+            - checkout
+            - cache restore
             - npm install
-      prologue:
-        commands:
-          - checkout
+            - cache store
   - name: Validate
     task:
       jobs:
@@ -26,3 +26,7 @@ blocks:
         - name: Test
           commands:
             - npm run test
+      prologue:
+        commands:
+          - checkout
+          - cache restore
