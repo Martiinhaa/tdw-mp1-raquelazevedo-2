@@ -19,3 +19,7 @@ blocks:
         - name: CONTENTFUL_SPACE_ID
         - name: NETLIFY_AUTH_TOKEN
         - name: NETLIFY_SITE_ID
+      prologue:
+        commands:
+          - checkout
+          - cache restore
