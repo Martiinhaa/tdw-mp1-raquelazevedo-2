@@ -1,0 +1,57 @@
+version: v1.0
+name: Initial Pipeline
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+blocks:
+  - name: Install
+    task:
+      jobs:
+        - name: Install
+          commands:
+            - checkout
+            - cache restore
+            - npm install
+            - cache store
+    dependencies: []
+  - name: Validate
+    task:
+      jobs:
+        - name: Lint
+          commands:
+            - npm run lint
+        - name: Prettier
+          commands:
+            - npm run prettier
+        - name: Test
+          commands:
+            - npm run test
+      prologue:
+        commands:
+          - checkout
+          - cache restore
+    dependencies:
+      - Install
+  - name: Build
+    dependencies:
+      - Validate
+    task:
+      prologue:
+        commands:
+          - checkout
+          - cache restore
+      jobs:
+        - name: Build
+          commands:
+            - npm run build
+            - cache store website-build-$SEMAPHORE_GIT_SHA out
+      secrets:
+        - name: CONTENTFUL_ACCESS_TOKEN
+        - name: CONTENTFUL_PREVIEW_ACCESS_TOKEN
+        - name: CONTENTFUL_SPACE_ID
+promotions:
+  - name: Promotion Deploy
+    pipeline_file: pipeline_2.yml
+    auto_promote:
+      when: result = 'passed'
