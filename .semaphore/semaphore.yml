@@ -46,6 +46,10 @@ blocks:
           commands:
             - npm run build
             - cache store website-build-$SEMAPHORE_GIT_SHA out
+      secrets:
+        - name: CONTENTFUL_ACCESS_TOKEN
+        - name: CONTENTFUL_PREVIEW_ACCESS_TOKEN
+        - name: CONTENTFUL_SPACE_ID
 promotions:
   - name: Promotion Deploy
     pipeline_file: pipeline_2.yml
