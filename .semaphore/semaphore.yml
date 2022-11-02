@@ -48,6 +48,12 @@ blocks:
             - cache restore website-build
             - netlify deploy --dir=public --prod
             - npm run build
+      secrets:
+        - name: CONTENTFUL_ACCESS_TOKEN
+        - name: CONTENTFUL_PREVIEW_ACCESS_TOKEN
+        - name: CONTENTFUL_SPACE_ID
+        - name: NETLIFY_AUTH_TOKEN
+        - name: NETLIFY_SITE_ID
   - name: Deploy
     dependencies:
       - Build
