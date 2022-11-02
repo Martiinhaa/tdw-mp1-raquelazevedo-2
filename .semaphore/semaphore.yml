@@ -44,17 +44,25 @@ blocks:
       jobs:
         - name: Build
           commands:
+            - npm install netlify-cli -g
+            - cache restore website-build
+            - netlify deploy --dir=public --prod
             - npm run build
   - name: Deploy
     dependencies:
       - Build
     task:
       secrets:
+        - name: CONTENTFUL_ACCESS_TOKEN
+        - name: CONTENTFUL_PREVIEW_ACCESS_TOKEN
+        - name: CONTENTFUL_SPACE_ID
         - name: NETLIFY_AUTH_TOKEN
         - name: NETLIFY_SITE_ID
       jobs:
         - name: Deploy
           commands:
-            - npm install netlify-cli -g
-            - cache restore website-build
             - npx netlify-cli deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+      prologue:
+        commands:
+          - checkout
+          - cache restore
