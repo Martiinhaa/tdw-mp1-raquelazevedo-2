@@ -11,6 +11,7 @@ blocks:
         - name: Deploy
           commands:
             - npm install netlify-cli -g
+            - npm install contentful
             - cache restore website-build-$SEMAPHORE_GIT_SHA
             - netlify deploy --dir=out --prod
       secrets:
