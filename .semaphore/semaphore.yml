@@ -44,37 +44,10 @@ blocks:
       jobs:
         - name: Build
           commands:
-            - npm install netlify-cli -g
-            - cache restore website-build
-            - netlify deploy --dir=public --prod
             - npm run build
-            - cache store
-      secrets:
-        - name: CONTENTFUL_ACCESS_TOKEN
-        - name: CONTENTFUL_PREVIEW_ACCESS_TOKEN
-        - name: CONTENTFUL_SPACE_ID
-        - name: NETLIFY_AUTH_TOKEN
-        - name: NETLIFY_SITE_ID
-  - name: Deploy
-    dependencies:
-      - Build
-    task:
-      secrets:
-        - name: CONTENTFUL_ACCESS_TOKEN
-        - name: CONTENTFUL_PREVIEW_ACCESS_TOKEN
-        - name: CONTENTFUL_SPACE_ID
-        - name: NETLIFY_AUTH_TOKEN
-        - name: NETLIFY_SITE_ID
-      jobs:
-        - name: Deploy
-          commands:
-            - npx netlify-cli deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
-      prologue:
-        commands:
-          - checkout
-          - cache restore
+            - cache store website-build public
 promotions:
-  - name: Promotion Deploy
+  - name: Netlify Promotion Deploy
     pipeline_file: pipeline_2.yml
     auto_promote:
       when: branch = 'master' AND result = 'passed'
