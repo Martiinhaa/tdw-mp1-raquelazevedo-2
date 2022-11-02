@@ -12,7 +12,7 @@ blocks:
           commands:
             - npm install netlify-cli -g
             - cache restore website-build
-            - netlify deploy --dir=public --prod
+            - netlify deploy --dir=out --prod
       secrets:
         - name: CONTENTFUL_ACCESS_TOKEN
         - name: CONTENTFUL_PREVIEW_ACCESS_TOKEN
