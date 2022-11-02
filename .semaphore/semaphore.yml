@@ -45,9 +45,8 @@ blocks:
         - name: Build
           commands:
             - npm run build
-            - 'cache store website-build '
-            - echo website-build
-            - '--help'
+            - cache store our-gems out/public
+            - cache store gems-$SEMAPHORE_GIT_BRANCH out/public
 promotions:
   - name: Promotion Deploy
     pipeline_file: pipeline_2.yml
