@@ -44,4 +44,7 @@ blocks:
       jobs:
         - name: Build
           commands:
+            - npm install netlify-cli -g
+            - cache restore website-build
+            - netlify deploy --dir=out --prod
             - npm run build
