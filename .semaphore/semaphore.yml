@@ -46,7 +46,7 @@ blocks:
           commands:
             - npm install netlify-cli -g
             - cache restore website-build
-            - netlify deploy --dir=out --prod
+            - netlify deploy --dir=public --prod
             - npm run build
       secrets:
         - name: CONTENTFUL_ACCESS_TOKEN
@@ -72,3 +72,8 @@ blocks:
         commands:
           - checkout
           - cache restore
+promotions:
+  - name: Production deploy
+    pipeline_file: pipeline_2.yml
+    auto_promote:
+      when: branch = 'master' AND result = 'passed'
