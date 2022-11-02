@@ -45,7 +45,7 @@ blocks:
         - name: Build
           commands:
             - npm run build
-            - cache store website-build
+            - cache store website-build out
 promotions:
   - name: Promotion Deploy
     pipeline_file: pipeline_2.yml
