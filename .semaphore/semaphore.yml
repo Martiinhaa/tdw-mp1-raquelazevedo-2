@@ -44,8 +44,8 @@ blocks:
       jobs:
         - name: Build
           commands:
-            - npm run build
-            - cache store website-build-$SEMAPHORE_GIT_SHA out
+            - 'npm run build:all'
+            - cache store website-build-$SEMAPHORE_GIT_SHA public
 promotions:
   - name: Promotion Deploy
     pipeline_file: pipeline_2.yml
