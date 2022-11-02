@@ -46,35 +46,8 @@ blocks:
           commands:
             - npm run build
             - cache store website-build public
-  - name: Deploy
-    dependencies:
-      - Build
-    task:
-      secrets:
-        - name: CONTENTFUL_ACCESS_TOKEN
-        - name: CONTENTFUL_PREVIEW_ACCESS_TOKEN
-        - name: CONTENTFUL_SPACE_ID
-        - name: NETLIFY_AUTH_TOKEN
-        - name: NETLIFY_SITE_ID
-      prologue:
-        commands:
-          - checkout
-          - cache restore
-      jobs:
-        - name: Deploy
-          commands:
-            - npm install netlify-cli -g
-            - cache restore website-build
-            - netlify deploy --dir=public --prod
-  - name: Test
-    dependencies:
-      - Deploy
-    task:
-      prologue:
-        commands:
-          - checkout
-          - cache restore
-      jobs:
-        - name: Test
-          commands:
-            - npm run nightwatch
+promotions:
+  - name: Promotion Deploy
+    pipeline_file: pipeline_2.yml
+    auto_promote:
+      when: result = 'passed'
