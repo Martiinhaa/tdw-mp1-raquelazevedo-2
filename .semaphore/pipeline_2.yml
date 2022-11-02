@@ -11,8 +11,8 @@ blocks:
         - name: Deploy
           commands:
             - npm install netlify-cli -g
-            - cache restore gems
-            - netlify deploy --dir=out --prod
+            - cache restore website-build
+            - netlify deploy --dir=out/public --prod
       secrets:
         - name: CONTENTFUL_ACCESS_TOKEN
         - name: CONTENTFUL_PREVIEW_ACCESS_TOKEN
