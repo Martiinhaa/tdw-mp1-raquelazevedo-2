@@ -48,6 +48,7 @@ blocks:
             - cache restore website-build
             - netlify deploy --dir=public --prod
             - npm run build
+            - cache store
       secrets:
         - name: CONTENTFUL_ACCESS_TOKEN
         - name: CONTENTFUL_PREVIEW_ACCESS_TOKEN
@@ -73,7 +74,7 @@ blocks:
           - checkout
           - cache restore
 promotions:
-  - name: Production deploy
+  - name: Promotion Deploy
     pipeline_file: pipeline_2.yml
     auto_promote:
       when: branch = 'master' AND result = 'passed'
